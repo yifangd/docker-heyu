@@ -8,12 +8,14 @@ RUN apk -U add curl build-base \
  && echo 'd0c00a5a0e6ecf664ad865f2e949cf1d8ca2b4b7 *shell2http-1.4.amd64.linux.zip' | sha1sum -c - \
  && unzip shell2http-1.4.amd64.linux.zip shell2http \
  && mv shell2http /usr/local/bin \
- && curl -LsSO http://www.heyu.org/download/heyu-2.11-rc1.tar.gz \
- && echo 'f02fa53b866343f05d57a2ac87c7f7b39c786295 *heyu-2.11-rc1.tar.gz' | sha1sum -c - \
- && tar xzf heyu-2.11-rc1.tar.gz \
- && cd heyu-2.11-rc1 \
- && ./configure --sysconfdir=/etc \
+ && curl -LsSO https://github.com/HeyuX10Automation/heyu/archive/refs/tags/v2.10.3.tar.gz \
+ && echo 'c8e720e8a97ff5f25d209d67b16af52766eb88be *v2.10.3.tar.gz' | sha1sum -c - \
+ && tar xzf v2.10.3.tar.gz \
+ && cd heyu-2.10.3 \
+ && ./Configure --sysconfdir=/etc darwin \
  && make \
+ && mkdir -p /var/tmp/heyu /etc/heyu \
+ && echo "TTY /dev/ttyS0" > /etc/heyu/x10.conf \
  && make install \
  && cd / \
  && apk --purge del curl build-base \

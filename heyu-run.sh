@@ -34,7 +34,12 @@ if [ ! -z "$unit_code" ]; then
         if [ "$(heyu onstate "$unit_code")" '>' 0 ]; then echo ON; else echo OFF; fi
     elif [ "$REQUEST_METHOD" = "POST" ]; then
         body=$(cat)
-        if [ "$body" = "ON" ]; then
+        if [ "$body" = "FON" ]; then
+	    echo "heyu fon $unit_code" 1>&2
+            heyu fon "$unit_code" 1>&2
+        elif [ "$body" = "FOFF" ]; then
+            heyu foff "$unit_code" 1>&2
+        elif [ "$body" = "ON" ]; then
             heyu on "$unit_code" 1>&2
         else
             heyu off "$unit_code" 1>&2
